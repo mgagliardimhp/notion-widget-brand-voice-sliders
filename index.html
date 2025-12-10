@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Community Clinician Co. – Brand Personality Slider</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #faf8f7;
+      --card-bg: #ffffff;
+      --text-main: #111111;
+      --text-subtle: #6b6b6b;
+      --accent: #1e6f63;
+      --track: #e3dedb;
+      --border: #e0d9d5;
+      --radius-lg: 16px;
+      --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.04);
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 32px 12px;
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top left, #f5efe9 0, #faf8f7 40%, #fdfdfd 100%);
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+    }
+
+    .wrapper {
+      width: 100%;
+      max-width: 920px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-soft);
+      padding: 28px 24px 24px;
+      border: 1px solid var(--border);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    .title {
+      font-size: 1.1rem;
+      font-weight: 650;
+      letter-spacing: 0.01em;
+    }
+
+    .subtitle {
+      font-size: 0.84rem;
+      color: var(--text-subtle);
+    }
+
+    .badge {
+      font-size: 0.75rem;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: rgba(30, 111, 99, 0.06);
+      color: var(--accent);
+      border: 1px solid rgba(30, 111, 99, 0.18);
+      font-weight: 550;
+      white-space: nowrap;
+    }
+
+    .actions {
+      margin-top: 8px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .reset-btn {
+      border-radius: 999px;
+      border: 1px solid #ddd0c9;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      background: #f6f0ea;
+      color: #6a5749;
+      cursor: pointer;
+    }
+
+    .reset-btn:hover {
+      background: #f1e5db;
+    }
+
+    .sliders {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1.2fr 3fr 1.2fr;
+      align-items: center;
+      gap: 14px;
+      padding: 9px 12px;
+      border-radius: 999px;
+      background: #faf7f4;
+      border: 1px solid #efe6df;
+    }
+
+    .trait {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text-subtle);
+      white-space: nowrap;
+    }
+
+    .trait--right {
+      text-align: right;
+    }
+
+    .slider-wrap {
+      position: relative;
+      width: 100%;
+    }
+
+    .value-label {
+      position: absolute;
+      top: -18px;
+      right: 0;
+      font-size: 0.7rem;
+      color: var(--text-subtle);
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      width: 100%;
+      margin: 0;
+      background: transparent;
+    }
+
+    input[type="range"]:focus {
+      outline: none;
+    }
+
+    /* track */
+    input[type="range"]::-webkit-slider-runnable-track {
+      height: 6px;
+      background: var(--track);
+      border-radius: 999px;
+    }
+    input[type="range"]::-moz-range-track {
+      height: 6px;
+      background: var(--track);
+      border-radius: 999px;
+    }
+
+    /* thumb */
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(30, 111, 99, 0.18);
+      margin-top: -4px;
+    }
+    input[type="range"]::-moz-range-thumb {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: none;
+      box-shadow: 0 0 0 4px rgba(30, 111, 99, 0.18);
+    }
+
+    .ticks {
+      position: absolute;
+      inset: 18px 0 0 0;
+      display: flex;
+      justify-content: space-between;
+      pointer-events: none;
+    }
+
+    .tick {
+      width: 1px;
+      height: 5px;
+      background: #d6cec7;
+      opacity: 0.8;
+    }
+
+    @media (max-width: 720px) {
+      .row {
+        grid-template-columns: 1fr;
+        border-radius: 14px;
+      }
+      .trait--right {
+        text-align: left;
+      }
+      .value-label {
+        top: -16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="title">Community Clinician Co. · Brand Personality</div>
+          <div class="subtitle">Drag the sliders. Your positions will be saved in this browser.</div>
+        </div>
+        <span class="badge">Clinician–Ethnographer</span>
+      </div>
+
+      <div class="actions">
+        <button class="reset-btn" id="resetBtn">Reset to CCC defaults</button>
+      </div>
+
+      <div class="sliders">
+
+        <!-- helper structure:
+             data-key = unique key for localStorage
+             data-default = CCC's default value -->
+
+        <!-- 1. Industrial – Natural (4/7) -->
+        <div class="row">
+          <div class="trait">Industrial</div>
+          <div class="slider-wrap">
+            <span class="value-label" data-for="industrial-natural"></span>
+            <input class="slider"
+                   type="range"
+                   min="1" max="7" step="1"
+                   data-key="industrial-natural"
+                   data-default="4" />
+            <div class="ticks">
+              <span class="tick"></span><span class="tick"></span><span class="tick"></span>
+              <span class="tick"></span><span class="tick"></span><span class="tick"></span>
+              <span class="tick"></span>
+            </div>
+          </div>
+          <div class="trait trait--right">Natural</div>
+        </div>
+
+        <!-- 2. Youthful – Established (6/7) -->
+        <div class="row">
+          <div class="trait">Youthful</div>
+          <div class="slider-wrap">
+            <span class="value-label" data-for="youthful-established"></span>
+            <input class="slider"
+                   type="range"
+                   min="1" max="7" step="1"
+                   data-key="youthful-established"
+                   data-default="6" />
+            <div class="ticks">
+              <span class="tick"></span><span class="tick"></span><span class="tick"></span>
+              <span class="tick"></span><span class="tick"></span><span class="tick"></span>
+              <span class="tick"></span>
+            </div>
+          </div>
+          <div class="trait trait--right">Established</div>
+        </div>
+
+        <!-- 3. Feminine – Masculine (5/7) -->
+        <div class="row">
+          <div class="trait">Feminine</div>
+          <div class="slider-wrap">
+            <span class="value-label" data-for="feminine-masculine"></span>
+            <input class="slider"
+                   type="range"
+                   min="1" max="7" step="1"
+                   data-key="feminine-masculine"
+                   data-default="5" />
+            <div class="ticks">
+              <span class="tick"></span><span class="tick"></span><span class="tick"></span>
+              <span class="tick"></span><span class="tick"></span><span class="tick"></span>
+              <span class="tick"></span>
+            </div>
+          </div>
+          <div class="trait trait--right">Masculine</div>
+        </div>
+
+        <!-- 4. Subtle – Bright (5/7) -->
+        <div class="row">
+          <div class="trait">Subtle</div>
+          <div class="slider-wrap">
+            <span class="value-label" data-for="subtle-bright"></span>
+            <input class="slider"
+                   type="range"
+                   min="1" max="7" step="1"
+                   data-key="subtle-bright"
+                   data-default="5" />
+            <div class="ticks">
+              <span class="tick"></span><span class="tick"></span><span class="tick"></span>
+              <span class="tick"></span><span class="tick"></span><span class="tick"></span>
+              <span class="tick"></span>
+            </div>
+          </div>
+          <div class="trait trait--right">Bright</div>
+        </div>
+
+        <!-- 5. Classic – Contemporary (6/7) -->
+        <div class="row">
+          <div class="trait">Classic</div>
+          <div class="slider-wrap">
+            <span class="value-label" data-for="classic-contemporary"></span>
+            <input class="slider"
+                   type="range"
+                   min="1" max="7" step="1"
+                   data-key="classic-contemporary"
+                   data-default="6" />
+            <div class="ticks">
+              <span class="tick"></span><span class="tick"></span><span class="tick"></span>
+              <span class="tick"></span><span class="tick"></span><span class="tick"></span>
+              <span class="tick"></span>
+            </div>
+          </div>
+          <div class="trait trait--right">Contemporary</div>
+        </div>
+
+        <!-- 6. Simple – Complex (5/7) -->
+        <div class="row">
+          <div class="trait">Simple</div>
+          <div class="slider-wrap">
+            <span class="value-label" data-for="simple-complex"></span>
+            <input class="slider"
+                   type="range"
+                   min="1" max="7" step="1"
+                   data-key="simple-complex"
+                   data-default="5" />
+            <div class="ticks">
+              <span class="tick"></span><span class="tick"></span><span class="tick"></span>
+              <span class="tick"></span><span class="tick"></span><span class="tick"></span>
+              <span class="tick"></span>
+            </div>
+          </div>
+          <div class="trait trait--right">Complex</div>
+        </div>
+
+        <!-- 7. Casual – Elegant (4/7) -->
+        <div class="row">
+          <div class="trait">Casual</div>
+          <div class="slider-wrap">
+            <span class="value-label" data-for="casual-elegant"></span>
+            <input class="slider"
+                   type="range"
+                   min="1" max="7" step="1"
+                   data-key="casual-elegant"
+                   data-default="4" />
+            <div class="ticks">
+              <span class="tick"></span><span class="tick"></span><span class="tick"></span>
+              <span class="tick"></span><span class="tick"></span><span class="tick"></span>
+              <span class="tick"></span>
+            </div>
+          </div>
+          <div class="trait trait--right">Elegant</div>
+        </div>
+
+        <!-- 8. Friendly – Authoritative (5/7) -->
+        <div class="row">
+          <div class="trait">Friendly</div>
+          <div class="slider-wrap">
+            <span class="value-label" data-for="friendly-authoritative"></span>
+            <input class="slider"
+                   type="range"
+                   min="1" max="7" step="1"
+                   data-key="friendly-authoritative"
+                   data-default="5" />
+            <div class="ticks">
+              <span class="tick"></span><span class="tick"></span><span class="tick"></span>
+              <span class="tick"></span><span class="tick"></span><span class="tick"></span>
+              <span class="tick"></span>
+            </div>
+          </div>
+          <div class="trait trait--right">Authoritative</div>
+        </div>
+
+        <!-- 9. Playful – Serious (4/7) -->
+        <div class="row">
+          <div class="trait">Playful</div>
+          <div class="slider-wrap">
+            <span class="value-label" data-for="playful-serious"></span>
+            <input class="slider"
+                   type="range"
+                   min="1" max="7" step="1"
+                   data-key="playful-serious"
+                   data-default="4" />
+            <div class="ticks">
+              <span class="tick"></span><span class="tick"></span><span class="tick"></span>
+              <span class="tick"></span><span class="tick"></span><span class="tick"></span>
+              <span class="tick"></span>
+            </div>
+          </div>
+          <div class="trait trait--right">Serious</div>
+        </div>
+
+        <!-- 10. Economical – Expensive (5/7) -->
+        <div class="row">
+          <div class="trait">Economical</div>
+          <div class="slider-wrap">
+            <span class="value-label" data-for="economical-expensive"></span>
+            <input class="slider"
+                   type="range"
+                   min="1" max="7" step="1"
+                   data-key="economical-expensive"
+                   data-default="5" />
+            <div class="ticks">
+              <span class="tick"></span><span class="tick"></span><span class="tick"></span>
+              <span class="tick"></span><span class="tick"></span><span class="tick"></span>
+              <span class="tick"></span>
+            </div>
+          </div>
+          <div class="trait trait--right">Expensive</div>
+        </div>
+
+        <!-- 11. Approachable – Elite (4/7) -->
+        <div class="row">
+          <div class="trait">Approachable</div>
+          <div class="slider-wrap">
+            <span class="value-label" data-for="approachable-elite"></span>
+            <input class="slider"
+                   type="range"
+                   min="1" max="7" step="1"
+                   data-key="approachable-elite"
+                   data-default="4" />
+            <div class="ticks">
+              <span class="tick"></span><span class="tick"></span><span class="tick"></span>
+              <span class="tick"></span><span class="tick"></span><span class="tick"></span>
+              <span class="tick"></span>
+            </div>
+          </div>
+          <div class="trait trait--right">Elite</div>
+        </div>
+
+        <!-- 12. Refined – Strong (5/7) -->
+        <div class="row">
+          <div class="trait">Refined</div>
+          <div class="slider-wrap">
+            <span class="value-label" data-for="refined-strong"></span>
+            <input class="slider"
+                   type="range"
+                   min="1" max="7" step="1"
+                   data-key="refined-strong"
+                   data-default="5" />
+            <div class="ticks">
+              <span class="tick"></span><span class="tick"></span><span class="tick"></span>
+              <span class="tick"></span><span class="tick"></span><span class="tick"></span>
+              <span class="tick"></span>
+            </div>
+          </div>
+          <div class="trait trait--right">Strong</div>
+        </div>
+
+        <!-- 13. Unconventional – Mainstream (5/7) -->
+        <div class="row">
+          <div class="trait">Unconventional</div>
+          <div class="slider-wrap">
+            <span class="value-label" data-for="unconventional-mainstream"></span>
+            <input class="slider"
+                   type="range"
+                   min="1" max="7" step="1"
+                   data-key="unconventional-mainstream"
+                   data-default="5" />
+            <div class="ticks">
+              <span class="tick"></span><span class="tick"></span><span class="tick"></span>
+              <span class="tick"></span><span class="tick"></span><span class="tick"></span>
+              <span class="tick"></span>
+            </div>
+          </div>
+          <div class="trait trait--right">Mainstream</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const STORAGE_PREFIX = "ccc-brand-slider-";
+
+      const sliders = document.querySelectorAll(".slider");
+
+      function updateLabel(slider) {
+        const key = slider.dataset.key;
+        const value = slider.value;
+        const label = document.querySelector('.value-label[data-for="' + key + '"]');
+        if (label) {
+          label.textContent = "• " + value + " / 7";
+        }
+      }
+
+      sliders.forEach((slider) => {
+        const key = slider.dataset.key;
+        const defaultVal = slider.dataset.default || "4";
+        const storageKey = STORAGE_PREFIX + key;
+
+        const storedValue = window.localStorage.getItem(storageKey);
+        slider.value = storedValue || defaultVal;
+        updateLabel(slider);
+
+        slider.addEventListener("input", () => {
+          window.localStorage.setItem(storageKey, slider.value);
+          updateLabel(slider);
+        });
+      });
+
+      // Reset button
+      const resetBtn = document.getElementById("resetBtn");
+      resetBtn.addEventListener("click", () => {
+        sliders.forEach((slider) => {
+          const key = slider.dataset.key;
+          const defaultVal = slider.dataset.default || "4";
+          const storageKey = STORAGE_PREFIX + key;
+          slider.value = defaultVal;
+          window.localStorage.setItem(storageKey, defaultVal);
+          updateLabel(slider);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
